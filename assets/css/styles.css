@@ -13,6 +13,7 @@ body {
 
 a {
 	color: #01B1EA;
+	text-decoration: none;
 }
 
 a:visited {
@@ -114,9 +115,11 @@ nav#menu ul li a:hover {
 
 /*CONTENIDO*/
 #contenido {
-	margin: 0;
+	width: 90%;
+	margin: 0px auto;
 	overflow: hidden;
 	background: #FFFFFF;
+
 }
 
 
@@ -216,6 +219,7 @@ input[type="submit"] {
 	padding: 5px 0;
 }
 
+
 /*===========================================
 =            CONTENIDO PRINCIPAL            =
 ===========================================*/
@@ -270,6 +274,7 @@ input[type="submit"] {
 =            FOOTER            =
 ==============================*/
 #footer {
+	clear: both;
 	width: 100%;
 	margin: 0 auto;
 	text-align: center;
