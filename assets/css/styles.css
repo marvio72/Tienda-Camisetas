@@ -1,0 +1,301 @@
+/*GENERALES*/
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+	background-image: url(../img/bg.png);
+	font-family: sans-serif, Helvetica, Arial;
+}
+
+a {
+	color: #01B1EA;
+}
+
+a:visited {
+	color : #01B1EA;
+}
+
+a:hover {
+	color: #555555;
+}
+
+.clearfix::after{
+	clear   : both;
+	content : '';
+	display : block;
+}
+
+h2 {
+	font-size: 18px;
+}
+
+/*CONTENEDOR*/
+#contenedor {
+	width: 80%;
+	margin: 0 auto;
+	box-shadow: 0 0 10px gray;
+	background-color: #ffffff;
+}
+
+/* HEADER */
+#header {
+	height: 145px;
+	margin: 0 auto;
+	background: #F0F0F0;
+}
+
+div#logo {
+	padding: 20px;
+	margin-left: 10px;
+	float: left;
+}
+
+div#logo img {
+	height: 100px;
+	float: left;
+}
+
+#logo a {
+	color           : #01B1EA;
+	float           : left;
+	font-family     : 'Open Sans', sans-serif;
+	font-size       : 40px;
+	font-weight     : bold;
+	letter-spacing  : 4px;
+	margin          : 18px 0 0 25px;
+	text-decoration : none;
+	text-shadow     : 0px 2px 2px #222222;
+	text-transform  : uppercase;
+	transition      : all 300ms;	
+}
+
+#logo a:hover {
+	text-shadow: 0 2px 2px #222222, 0 0 4px #01B1EA;
+}
+
+/*MENU*/
+nav#menu {
+	background-color : #222222;
+	color            : #FFFFFF;
+	height           : 55px;
+	border-bottom    : 4px solid #01B1EA;
+}
+
+nav#menu ul {
+	margin: 0 0 0 85px;
+	list-style: none;
+}
+
+nav#menu ul li {
+	line-height: 55px;
+	float: left;
+	border-right: 1px solid #363636;
+}
+
+nav#menu ul li:first-child {
+	border-left: 1px solid #363636;
+}
+
+nav#menu ul li a {
+	color: #FFFFFF;
+	text-decoration: none;
+	display: block;
+	padding: 0 20px;
+	transition: all 300ms;
+}
+
+nav#menu ul li a:hover {
+	background-color: #01B1EA;
+}
+
+/*CONTENIDO*/
+#contenido {
+	margin: 0;
+	overflow: hidden;
+	background: #FFFFFF;
+}
+
+
+/*BARRA LATERAL*/
+#lateral {
+	width: 23%;
+	float: left;
+	margin: 20px 0 0 10px;
+	height: auto;
+}
+
+.bloque-aside {
+	display: block;
+	width: 90%;
+	margin: 5px;
+	padding: 10px;
+}
+
+.bloque-aside h3{
+	display: block;
+	text-align: center;
+	background-color: #E1E1E1;
+	padding: 2px 0;
+	border-bottom: 2px solid #01B1EA;
+	font-size: 16px;
+	margin-bottom: 15px;
+	font-weight: bold;
+}
+
+/*FORMULARIO*/
+label,
+input[type="email"],
+input[type="password"],
+select {
+	display: block;
+	width: 95%;
+	margin: 2px 0;
+}
+
+
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+select {
+	border: 1px solid #C9C9C9;
+	box-shadow: 0px 0px 2px #ccc inset;
+	background: #FFFFFF;
+	padding: 2px 0;
+	color: gray;
+	transition: all 300ms;
+	width: 100%;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus {
+	border: 1px solid #1579B5;
+	color: #000000;
+}
+
+input[type="submit"],
+.button {
+	border-radius: 4px;
+	padding: 5px 15px;
+	background: #1579B5;
+	color: #FFFFFF;
+	cursor: pointer;
+}
+.button {
+	background-color: #33ae3d;
+	color: white!important;
+	text-decoration: none;
+	width: 100%;
+	padding: 5px 0;
+	display: inline-block;
+	border: 1px solid #00710d
+}
+.button:hover {
+	color: #aaa!important;
+}
+
+label,
+input[type="submit"] {
+	margin-top: 10px;
+}
+
+#login ul {
+	margin-top: 15px;
+	padding: 0px;
+	margin-left: 20px;
+
+}
+
+#login ul li{
+	list-style: square;
+	padding: 5px 0;
+}
+
+/*===========================================
+=            CONTENIDO PRINCIPAL            =
+===========================================*/
+#central {
+	width: 75%;
+	float:right;
+	border-left: 1px solid #CCCCCC;
+	box-shadow: -5px -1px 5px #DDDDDD;
+	padding: 25px;
+	min-height: 500px;
+}
+
+#central h1 {
+	font-size: 24px;
+	font-weight: normal;
+	letter-spacing: 1px;
+	margin-top: 0px;
+	margin-bottom: 20px;
+	text-align: center;
+	border-bottom: 1px solid #CCCCCC;
+	padding: 0 20px 20px 20px;
+
+}
+
+
+/*=====  End of CONTENIDO PRINCIPAL  ======*/
+
+/*=================================
+=            PRODUCTOS            =
+=================================*/
+.producto {
+	width: 30%;
+	float: left;
+	margin: 0 10px;
+	text-align: center;
+}
+
+
+.producto img{
+	width: 100px;
+
+}
+
+.producto p{
+	font-weight: bold;
+	color: #555;
+}
+
+/*=====  End of PRODUCTOS  ======*/
+
+/*==============================
+=            FOOTER            =
+==============================*/
+#footer {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	background: #222222;
+	padding: 5px 0;
+	border-top: 2px solid #01B1EA;
+}
+
+#footer p {
+	color: #ffffff;
+	font-family     : 'Open Sans', sans-serif;
+	font-size: 1.2em;
+
+} 
+
+
+/*=====  End of FOOTER  ======*/
+
+
+
+
+
+
+
+
+
+
+
+
