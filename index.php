@@ -5,7 +5,7 @@ require_once 'autoload.php';
 if (isset($_GET['controller'])) {
     $nombre_controlador = $_GET['controller'].'Controller';
 }else{
-    echo "La pagina que buscas no existe";
+    echo "La pagina que buscas no existe1";
     exit();
 }
 
@@ -16,8 +16,8 @@ if (class_exists($nombre_controlador)) {
         $action = $_GET['action'];
         $controlador->$action();
     }else{
-        echo "La pagina que buscas no existe1";
+        echo "La pagina que buscas no existe2";
     }
 }else{
-    echo "La pagina que buscas no existe2";
+    echo "La pagina que buscas no existe3";
 }
