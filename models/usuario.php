@@ -8,7 +8,7 @@ class Usuario{
     private $password;
     private $rol;
     private $imagen;
-    private $db;
+    public  $db;
 
     public function __construct(){
         $this->db = Database::connect();
@@ -92,14 +92,51 @@ class Usuario{
     }
 
     public function save(){
-        $sql = "INSERT INTO usuarios VALUES(NULL,'{$this->getNombre()}','{$this->getApellidos()}','{$this->getEmail()}','{$this->getPassword()}','user',CURDATE(),NULL);";
-        $save = $this->db->query($sql);
+        
+        /***************   *** Comentario *** ***************/
+        /* @Descripcion: Usando el metodo prepare en mysqli
+        /* @Acción     : Limpiando las entradas
+        /***************   *** ********** *** ***************/
+        $nombre = filter_var($this->getNombre(),FILTER_SANITIZE_STRING);
+        $apellidos = filter_var($this->getApellidos(),FILTER_SANITIZE_STRING);
+        $email = filter_var($this->getEmail(),FILTER_SANITIZE_EMAIL);
+        $password = filter_var($this->getPassword(),FILTER_SANITIZE_STRING);
+        $rol = 'user';
+        $fecha = 'CURDATE()';
+
+
+        try {
+            $stmt = $this->db->prepare("INSERT INTO usuarios (nombre, apellidos, email, password, rol, fecha) VALUES (?,?,?,?,?,CURDATE())");
+            $stmt->bind_param("sssss", $nombre,$apellidos,$email,$password,$rol);
+            $stmt->execute();
+            $respuesta = array(
+                'respuesta' => 'correcto',
+                'info' => $stmt 
+            );
+            $stmt->close();
+            $result = true;
+
+        } catch (Exception $e) {
+            $result = false;
+            $respuesta = array(
+                'error' => $e->getMessage()
+            );
+        }
+    
+        return $result;
+
+        /***************   *** Comentario *** ***************/
+        /* @Descripcion: Metodo query
+        /* @Acción     : No es muy seguro este metodo.
+        /***************   *** ********** *** ***************/
+        // $sql = "INSERT INTO usuarios VALUES(NULL,'{$this->getNombre()}','{$this->getApellidos()}','{$this->getEmail()}','{$this->getPassword()}','user',CURDATE(),NULL);";
+        // $save = $this->db->query($sql);
         
 
-        $result = false;
-        if($save){
-            $result = true;
-        }
-        return $result;
+        // $result = false;
+        // if($save){
+        //     $result = true;
+        // }
+        // return $result;
     }
 }

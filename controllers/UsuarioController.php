@@ -12,6 +12,7 @@ class UsuarioController{
     }
 
     public function save(){
+
         if (isset($_POST)) {
             // var_dump($_POST);
             $usuario = new Usuario();
@@ -21,6 +22,12 @@ class UsuarioController{
             $usuario->setPassword($_POST['password']);
 
             $save = $usuario->save();
+            $conexion = new Usuario;
+            /***************   *** Comentario *** ***************/
+            /* @Descripcion: Metodo prepare en mysqli
+            /* @Acción     : Cerrando la base de datos.
+            /***************   *** ********** *** ***************/
+            $conexion->db->close();
 
             if ($save) {
                 $_SESSION['register'] = "complete";
