@@ -9,6 +9,7 @@ apellidos       varchar(255),
 email           varchar(255) not null,
 password        varchar(255) not null,
 rol             varchar(20),
+fecha           date,
 imagen          varchar(255),
 CONSTRAINT pk_usuarios PRIMARY KEY(id),
 CONSTRAINT uq_email UNIQUE(email)  
