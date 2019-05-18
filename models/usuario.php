@@ -102,28 +102,27 @@ class Usuario{
         $email = filter_var($this->getEmail(),FILTER_SANITIZE_EMAIL);
         $password = filter_var($this->getPassword(),FILTER_SANITIZE_STRING);
         $rol = 'user';
-        $fecha = 'CURDATE()';
 
+        /***************   *** Comentario *** ***************/
+        /* @Descripcion: Iniciamos preparando la accion de mysqli
+        /* @Acción     : Insertar nuevos datos a un registro de la tabla usuarios.
+        /***************   *** ********** *** ***************/
 
-        try {
-            $stmt = $this->db->prepare("INSERT INTO usuarios (nombre, apellidos, email, password, rol, fecha) VALUES (?,?,?,?,?,CURDATE())");
-            $stmt->bind_param("sssss", $nombre,$apellidos,$email,$password,$rol);
-            $stmt->execute();
-            $respuesta = array(
-                'respuesta' => 'correcto',
-                'info' => $stmt 
-            );
-            $stmt->close();
-            $result = true;
+            $save = $this->db->prepare("INSERT INTO usuarios (nombre, apellidos, email, password, rol, fecha) VALUES (?,?,?,?,?,CURDATE())");
+            $save->bind_param("sssss", $nombre,$apellidos,$email,$password,$rol);
+            $save->execute();
 
-        } catch (Exception $e) {
             $result = false;
-            $respuesta = array(
-                'error' => $e->getMessage()
-            );
-        }
+            if ($save) {
+                $result = true;
+                //se cierra la sentencia SQL
+                $save->close();
+            }
+        
+            return $result;
+            
     
-        return $result;
+        
 
         /***************   *** Comentario *** ***************/
         /* @Descripcion: Metodo query
