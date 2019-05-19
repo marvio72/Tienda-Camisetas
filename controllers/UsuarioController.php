@@ -20,7 +20,8 @@ class UsuarioController{
             $email     = isset($_POST['email']) ? $_POST['email']        : false;
             $password  = isset($_POST['password']) ? $_POST['password']  : false;
 
-            //captura de datos en campos
+            //captura de datos en campos para que permanezcan hasta que sean ingresados a la
+            //base de datos
             $campos = array();
             $campos['nombre'] = $nombre;
             $campos['apellidos'] = $apellidos;
@@ -48,7 +49,8 @@ class UsuarioController{
 
             if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-                $email = Utils::LimpiarDatos($email);      
+                $email = Utils::LimpiarDatos($email);  
+                $email = strtolower($email);    
             } else {
                 $errores['email'] = "El email no es válido";
             }
@@ -93,5 +95,34 @@ class UsuarioController{
             }
             header("Location:" . BASE_URL . 'usuario/registro');
         }
+    }
+
+    public function login(){
+        if (isset($_POST)) {
+            // Identificar al usuario
+            // Consulta a la base de datos
+            $usuario = new Usuario();
+            $usuario->setEmail($_POST['email']);
+            $usuario->setPassword($_POST['password']);
+            
+            $identity = $usuario->login();
+
+            // var_dump($identity);
+            // die();
+            if ($identity && is_object($identity)) {
+                $_SESSION['identity'] = $identity;
+                
+                if ($identity->rol == 'admin') {
+                    $_SESSION['admin'] = true;
+                }
+            } else {
+                $_SESSION['error_login'] = 'Identificación fallida !!';
+            }
+
+
+            
+            // Crear una sesion
+        }
+        header("Location:".BASE_URL);
     }
 } 
