@@ -92,15 +92,15 @@ class Usuario{
     }
 
     public function save(){
-        
+
         /***************   *** Comentario *** ***************/
         /* @Descripcion: Usando el metodo prepare en mysqli
         /* @Acción     : Limpiando las entradas
         /***************   *** ********** *** ***************/
-        $nombre = filter_var($this->getNombre(),FILTER_SANITIZE_STRING);
-        $apellidos = filter_var($this->getApellidos(),FILTER_SANITIZE_STRING);
-        $email = filter_var($this->getEmail(),FILTER_SANITIZE_EMAIL);
-        $password = filter_var($this->getPassword(),FILTER_SANITIZE_STRING);
+        $nombre = $this->getNombre();
+        $apellidos = $this->getApellidos();
+        $email = $this->getEmail();
+        $password = $this->getPassword();
         $rol = 'user';
 
         /***************   *** Comentario *** ***************/
