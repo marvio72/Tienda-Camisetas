@@ -3,7 +3,7 @@
 class Utils{
 
     /***************   *** Comentario *** ***************/
-    /* @Descripcion: Metodo para borrar $_SESSION
+    /* @Descripcion: DeleteSesion
     /* @Acción     : Borrar $_SESSION[$name]
     /***************   *** ********** *** ***************/
     public static function DeleteSession($name){
@@ -17,7 +17,7 @@ class Utils{
     }
 
     /***************   *** Comentario *** ***************/
-    /* @Descripcion: Metodo para mostrar los errores en los campos de registros.
+    /* @Descripcion: MostrarError
     /* @Acción     : Mestra errores al ingresar datos
     /***************   *** ********** *** ***************/
 
@@ -28,5 +28,19 @@ class Utils{
         }
 
         return $alerta;
+    }
+
+
+    /***************   *** Comentario *** ***************/
+    /* @Descripcion: LimpliarDatos
+    /* @Acción     : Limpiar espacios blancos, caracteres especiales y quita la barra de un 
+    /*                string con comillas escapadas.
+    /***************   *** ********** *** ***************/
+
+    public static function LimpiarDatos($datos){
+        $datos = trim($datos);
+        $datos = stripslashes($datos);
+        $datos = htmlspecialchars($datos);
+        return $datos;
     }
 }

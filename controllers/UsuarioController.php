@@ -20,32 +20,45 @@ class UsuarioController{
             $email     = isset($_POST['email']) ? $_POST['email']        : false;
             $password  = isset($_POST['password']) ? $_POST['password']  : false;
 
+            //captura de datos en campos
+            $campos = array();
+            $campos['nombre'] = $nombre;
+            $campos['apellidos'] = $apellidos;
+            $campos['email'] = $email;
+            $campos['password'] = $password;
+
             //Validar los datos
             $errores = array();
+            
 
             // Validar nombree
             if (!empty($nombre) && !is_numeric($nombre) && !preg_match("/[0-9]/", $nombre)) {
                 $nombre = filter_var($nombre, FILTER_SANITIZE_STRING);
+                $nombre = Utils::LimpiarDatos($nombre);
             } else {
                 $errores['nombre']="El nombre no es válido";
             }
 
             if (!empty($apellidos) && !is_numeric($apellidos) && !preg_match("/[0-9]/", $apellidos)) {
                 $apellidos = filter_var($apellidos, FILTER_SANITIZE_STRING);
+                $apellidos = Utils::LimpiarDatos($apellidos);               
             } else {
-                $errores['apellidos']="El apellido no es válido";
+                $errores['apellidos']="El apellido no es válido";                
             }
 
             if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+                $email = Utils::LimpiarDatos($email);      
             } else {
                 $errores['email'] = "El email no es válido";
             }
 
             if (!empty($password)) {
                 $password = filter_var($password, FILTER_SANITIZE_STRING);
+                $password = Utils::LimpiarDatos($password);
             } else {
                 $errores['password'] = "La contraseña no es válida";
+                
             } 
 
 
@@ -76,6 +89,7 @@ class UsuarioController{
             } else {
                 $_SESSION['register'] = "failed";
                 $_SESSION['errores'] = $errores;
+                $_SESSION['campos'] = $campos;
             }
             header("Location:" . BASE_URL . 'usuario/registro');
         }
