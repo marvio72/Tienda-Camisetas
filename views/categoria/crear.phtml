@@ -1,0 +1,18 @@
+<h1>Crear nueva categoria</h1>
+<?php if (isset($_SESSION['register']) && $_SESSION['register'] == 'complete') : ?>
+    <strong class="alert-green"></strong>
+<?php elseif (isset($_SESSION['register']) && $_SESSION['register'] == 'failed') : ?>
+    <strong class="alert-red">Registro fallido, introduce bien los datos</strong>
+<?php endif; ?>
+<!--Borrar sesion register-->
+<?php Utils::DeleteSession('register'); ?>
+
+<form action="<?= BASE_URL ?>categoria/save" method="POST">
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" value="<?php echo isset($_SESSION['campos']) ? $_SESSION['campos']['nombre'] : ''; ?>" required>
+    <?php echo isset($_SESSION['errores']) ? Utils::MostrarError($_SESSION['errores'], 'nombre') : ''; ?>
+    <input type="submit" value="Guardar">
+
+    <?php Utils::DeleteSession('errores'); ?>
+    <?php Utils::DeleteSession('campos'); ?>
+</form>

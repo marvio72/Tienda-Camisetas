@@ -43,4 +43,29 @@ class Utils{
         $datos = htmlspecialchars($datos);
         return $datos;
     }
+
+    /***************   *** Comentario *** ***************/
+    /* @Descripcion: isAdmin
+    /* @Acción     : Valida si el usuario es administrador
+    /***************   *** ********** *** ***************/
+
+    public static function isAdmin(){
+        if (!isset($_SESSION['admin'])) {
+            header("Location:".BASE_URL);
+        }else {
+            return true;
+        }
+    }
+
+    /***************   *** Comentario *** ***************/
+    /* @Descripcion: showCategorias
+    /* @Acción     : Muestra en el menu todas las categorias que tenemos
+    /***************   *** ********** *** ***************/
+
+    public static function showCategorias(){
+        require_once 'models/categoria.php';
+        $categoria = new Categoria();
+        $categorias = $categoria->getAll();
+        return $categorias;
+    }
 }

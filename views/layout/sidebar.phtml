@@ -17,13 +17,15 @@
 
         <ul>
             <?php if (isset($_SESSION['admin'])) : ?>
-                <li><a href="<?=BASE_URL?>categoria/index">Gestionar categorias</a></li>
+                <li><a href="<?= BASE_URL ?>categoria/index">Gestionar categorias</a></li>
                 <li><a href="#">Gestionar productos</a></li>
                 <li><a href="#">Gestionar pedidos</a></li>
             <?php endif; ?>
             <?php if (isset($_SESSION['identity'])) : ?>
                 <li><a href="#">Mis pedidos</a></li>
                 <li><a href="<?= BASE_URL ?>usuario/logout">Cerrar sesión</a></li>
+            <?php else : ?>
+                <li><a href="<?= BASE_URL ?>usuario/registro">Registrate aqui</a></li>
             <?php endif; ?>
         </ul>
     </div> <!--	fin #login	-->

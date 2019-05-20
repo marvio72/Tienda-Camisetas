@@ -36,7 +36,7 @@ class UsuarioController{
             $errores = array();
             
 
-            // Validar nombree
+            // Validar nombre
             if (!empty($nombre) && !is_numeric($nombre) && !preg_match("/[0-9]/", $nombre)) {
                 $nombre = filter_var($nombre, FILTER_SANITIZE_STRING);
                 $nombre = Utils::LimpiarDatos($nombre);
@@ -77,7 +77,6 @@ class UsuarioController{
                 $usuario->setPassword($password);
 
                 $save = $usuario->save();
-                $conexion = new Usuario;
                 /***************   *** Comentario *** ***************/
                 /* @Descripcion: Metodo prepare en mysqli
                 /* @Acción     : Cerrando la base de datos.
@@ -87,7 +86,7 @@ class UsuarioController{
                 if ($save) {
                     $_SESSION['register'] = "complete";
                     //Cierra la conexion
-                    $conexion->db->close();
+                    $usuario->db->close();
                 } else {
                     $_SESSION['register'] = "failed";
                 }
