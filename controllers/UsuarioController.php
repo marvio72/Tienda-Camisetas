@@ -11,6 +11,10 @@ class UsuarioController{
         require_once 'views/usuario/registro.phtml';
     }
 
+    /***************   *** Comentario *** ***************/
+    /* @Descripcion: save() 
+    /* @Acción     : Preparar todo los campos para ingresar datos en la base de datos
+    /***************   *** ********** *** ***************/
     public function save(){
 
         if (isset($_POST)) {
@@ -97,18 +101,22 @@ class UsuarioController{
         }
     }
 
+    /***************   *** Comentario *** ***************/
+    /* @Descripcion: login()
+    /* @Acción     : Ingreso de un usuario ya registrado
+    /***************   *** ********** *** ***************/
     public function login(){
         if (isset($_POST)) {
             // Identificar al usuario
-            // Consulta a la base de datos
+            
             $usuario = new Usuario();
             $usuario->setEmail($_POST['email']);
             $usuario->setPassword($_POST['password']);
             
+            // Consulta a la base de datos
             $identity = $usuario->login();
 
-            // var_dump($identity);
-            // die();
+            // Crear sesión
             if ($identity && is_object($identity)) {
                 $_SESSION['identity'] = $identity;
                 
@@ -121,8 +129,22 @@ class UsuarioController{
 
 
             
-            // Crear una sesion
+            
         }
         header("Location:".BASE_URL);
     }
-} 
+
+    /***************   *** Comentario *** ***************/
+    /* @Descripcion: logout()
+    /* @Acción     : Metodo para cerrar sesion.
+    /***************   *** ********** *** ***************/
+    public function logout(){
+        if (isset($_SESSION['identity'])) {
+            unset($_SESSION['identity']);
+        }
+        if (isset($_SESSION['admin'])) {
+            unset($_SESSION['admin']);
+        }
+        header ("Location:".BASE_URL);
+    }
+} //fin Clase

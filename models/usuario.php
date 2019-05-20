@@ -90,6 +90,10 @@ class Usuario{
         return $this;
     }
 
+    /***************   *** Comentario *** ***************/
+    /* @Descripcion: save()
+    /* @Acción     : Guarda un nuevo usuario en la base de datos
+    /***************   *** ********** *** ***************/
     public function save(){
 
         /***************   *** Comentario *** ***************/
@@ -138,6 +142,10 @@ class Usuario{
         // return $result;
     }
 
+    /***************   *** Comentario *** ***************/
+    /* @Descripcion: login()
+    /* @Acción     : Metodo para el login de un usuario ya registrado
+    /***************   *** ********** *** ***************/
     public function login(){
         $result = false;
         $email = $this->email;
