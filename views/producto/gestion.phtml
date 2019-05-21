@@ -1,0 +1,20 @@
+<h1>Gestion de Productos</h1>
+
+<a href="<?= BASE_URL ?>producto/crear" class="button button-small">Crear Producto</a>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Stock</th>
+    </tr>
+    <?php while ($pro = $productos->fetch_Object()) : ?>
+        <tr>
+            <td><?= $pro->id; ?></td>
+            <td><?= $pro->nombre; ?></td>
+            <td>$<?= $pro->precio; ?></td>
+            <td><?= $pro->stock; ?></td>
+        </tr>
+    <?php endwhile; ?>
+</table>
