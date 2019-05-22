@@ -36,7 +36,7 @@ class Producto{
 
     public function setCategoria_id($categoria_id)
     {
-        $this->categoria_id = $categoria_id;
+        $this->categoria_id = $this->db->real_escape_string($categoria_id);
         return $this;
     }
 
@@ -47,7 +47,7 @@ class Producto{
 
     public function setNombre($nombre)
     {
-        $this->nombre = $nombre;
+        $this->nombre = $this->db->real_escape_string($nombre);
         return $this;
     }
 
@@ -58,7 +58,7 @@ class Producto{
 
     public function setDescripcion($descripcion)
     {
-        $this->descripcion = $descripcion;
+        $this->descripcion = $this->db->real_escape_string($descripcion);
         return $this;
     }
 
@@ -69,7 +69,7 @@ class Producto{
 
     public function setPrecio($precio)
     {
-        $this->precio = $precio;
+        $this->precio = $this->db->real_escape_string($precio);
         return $this;
     }
 
@@ -80,7 +80,7 @@ class Producto{
 
     public function setStock($stock)
     {
-        $this->stock = $stock;
+        $this->stock = $this->db->real_escape_string($stock);
         return $this;
     }
 
@@ -91,7 +91,7 @@ class Producto{
 
     public function setOferta($oferta)
     {
-        $this->oferta = $oferta;
+        $this->oferta = $this->db->real_escape_string($oferta);
         return $this;
     }
 
@@ -113,13 +113,50 @@ class Producto{
 
     public function setImagen($imagen)
     {
-        $this->imagen = $imagen;
+        $this->imagen = $this->db->real_scape_string($imagen);
         return $this;
     }
 
     public function getAll(){
         $productos = $this->db->query("SELECT * FROM productos ORDER BY id DESC");
         return $productos;
+    }
+
+    public function save()
+    {
+ 
+        /***************   *** Comentario *** ***************/
+        /* @Descripcion: Usando el metodo prepare en mysqli
+        /* @Acción     : Limpiando las entradas
+        /***************   *** ********** *** ***************/
+        $categoria   = $this->getCategoria_id();
+        $nombre      = $this->getNombre();
+        $descripcion = $this->getDescripcion();
+        $precio      = $this->getPrecio();
+        $stock       = $this->getStock();
+        $oferta      = $this->getOferta();
+        $fecha       = $this->getFecha();
+        $imagen      = $this->getImagen();
+
+
+
+        /***************   *** Comentario *** ***************/
+        /* @Descripcion: Iniciamos preparando la accion de mysqli
+        /* @Acción     : Insertar nuevos datos a un registro de la tabla usuarios.
+        /***************   *** ********** *** ***************/
+
+        $save = $this->db->prepare("INSERT INTO productos (categoria_id, nombre, descripcion, precio, stock, oferta, fecha, imagen) VALUES (?,?,?,?,?,NULL,CURDATE(),NULL)");
+        $save->bind_param("issdi", $categoria,$nombre,$descripcion,$precio,$stock);
+        $save->execute();
+
+        $result = false;
+        if ($save) {
+            $result = true;
+            //se cierra la sentencia SQL
+            $save->close();
+        }
+
+        return $result;
     }
 
 }

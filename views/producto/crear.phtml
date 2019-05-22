@@ -1,0 +1,46 @@
+<h1>Crear nuevos productos</h1>
+
+<?php if (isset($_SESSION['producto']) && $_SESSION['producto'] == 'failed') : ?>
+    <strong class="alert-red">Registro fallido, introduce bien los datos</strong>
+<?php endif; ?>
+<!--Borrar sesion de producto-->
+<?php Utils::DeleteSession('producto'); ?>
+
+<div class="form-container">
+    <form action="<?= BASE_URL ?>producto/save" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" value="<?php echo isset($_SESSION['campos']) ? $_SESSION['campos']['nombre'] : ''; ?>">
+        <?php echo isset($_SESSION['errores']) ? Utils::MostrarError($_SESSION['errores'], 'nombre') : ''; ?>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea name="descripcion"><?php echo isset($_SESSION['campos']) ? $_SESSION['campos']['descripcion'] : ''; ?></textarea>
+        <?php echo isset($_SESSION['errores']) ? Utils::MostrarError($_SESSION['errores'], 'descripcion') : ''; ?>
+
+        <label for="precio">Precio:</label>
+        <input type="text" name="precio" value="<?php echo isset($_SESSION['campos']) ? $_SESSION['campos']['precio'] : ''; ?>">
+        <?php echo isset($_SESSION['errores']) ? Utils::MostrarError($_SESSION['errores'], 'precio') : ''; ?>
+
+        <label for="stock">Stock:</label>
+        <input type="number" name="stock" value="<?php echo isset($_SESSION['campos']) ? $_SESSION['campos']['stock'] : ''; ?>">
+        <?php echo isset($_SESSION['errores']) ? Utils::MostrarError($_SESSION['errores'], 'stock') : ''; ?>
+        
+
+        <label for="categoria">Categoria:</label>
+        <?php $categorias = Utils::showCategorias(); ?>
+        <select name="categoria">
+            <?php while ($cat = $categorias->fetch_object()) : ?>
+                <option value="<?= $cat->id ?>">
+                    <?= $cat->nombre ?>
+                </option>
+            <?php endwhile; ?>
+        </select>
+
+        <label for="imagen">Imagen:</label>
+        <input type="file" name="imagen">
+
+        <input type="submit" value="Guardar">
+
+        <?php Utils::DeleteSession('errores'); ?>
+        <?php Utils::DeleteSession('campos'); ?>
+    </form>
+</div>
