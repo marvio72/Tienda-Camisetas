@@ -113,7 +113,7 @@ class Producto{
 
     public function setImagen($imagen)
     {
-        $this->imagen = $this->db->real_scape_string($imagen);
+        $this->imagen = $imagen;
         return $this;
     }
 
@@ -145,9 +145,10 @@ class Producto{
         /* @Acción     : Insertar nuevos datos a un registro de la tabla usuarios.
         /***************   *** ********** *** ***************/
 
-        $save = $this->db->prepare("INSERT INTO productos (categoria_id, nombre, descripcion, precio, stock, oferta, fecha, imagen) VALUES (?,?,?,?,?,NULL,CURDATE(),NULL)");
-        $save->bind_param("issdi", $categoria,$nombre,$descripcion,$precio,$stock);
+        $save = $this->db->prepare("INSERT INTO productos (categoria_id, nombre, descripcion, precio, stock, oferta, fecha, imagen) VALUES (?,?,?,?,?,NULL,CURDATE(),?)");
+        $save->bind_param("issdis", $categoria,$nombre,$descripcion,$precio,$stock,$imagen);
         $save->execute();
+        
 
         $result = false;
         if ($save) {

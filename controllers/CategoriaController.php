@@ -56,15 +56,15 @@ class CategoriaController{
 
 
                 if ($save) {
-                    $_SESSION['register'] = "complete";
+                    $_SESSION['categoria'] = "complete";
                     //Cierra la conexion
                     $categoria->db->close();
                     
                 } else {
-                    $_SESSION['register'] = "failed";
+                    $_SESSION['categoria'] = "failed";
                 }
             } else {
-                $_SESSION['register'] = "failed";
+                $_SESSION['categoria'] = "failed";
                 $_SESSION['errores'] = $errores;
                 $_SESSION['campos'] = $campos;
             }

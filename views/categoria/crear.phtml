@@ -1,11 +1,10 @@
 <h1>Crear nueva categoria</h1>
-<?php if (isset($_SESSION['register']) && $_SESSION['register'] == 'complete') : ?>
-    <strong class="alert-green"></strong>
-<?php elseif (isset($_SESSION['register']) && $_SESSION['register'] == 'failed') : ?>
+
+<?php if (isset($_SESSION['categoria']) && $_SESSION['categoria'] == 'failed') : ?>
     <strong class="alert-red">Registro fallido, introduce bien los datos</strong>
 <?php endif; ?>
-<!--Borrar sesion register-->
-<?php Utils::DeleteSession('register'); ?>
+<!--Borrar sesion categoria-->
+<?php Utils::DeleteSession('categoria'); ?>
 
 <form action="<?= BASE_URL ?>categoria/save" method="POST">
     <label for="nombre">Nombre:</label>

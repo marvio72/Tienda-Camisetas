@@ -1,6 +1,12 @@
 <h1>Gestionar categorias</h1>
 
-<a href="<?=BASE_URL?>categoria/crear" class="button button-small">Crear Categoria</a>
+<a href="<?= BASE_URL ?>categoria/crear" class="button button-small">Crear Categoria</a>
+
+<?php if (isset($_SESSION['categoria']) && $_SESSION['categoria'] == 'complete') : ?>
+    <br>
+    <strong class="alert-green">La categoria se ha creado correctamente</strong>
+<?php endif; ?>
+<?php Utils::DeleteSession('categoria'); ?>
 
 <table>
     <tr>
