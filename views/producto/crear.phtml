@@ -1,4 +1,11 @@
-<h1>Crear nuevos productos</h1>
+<?php if (isset($edit) && isset($pro) && is_object($pro)) : ?>
+    <h1>Editar Producto <?= $pro->nombre ?></h1>
+    <?php $url_action = BASE_URL . "producto/save&id=$pro->id"; ?>
+<?php else : ?>
+    <h1>Crear nuevos productos</h1>
+    <?php $url_action = BASE_URL . "producto/save"; ?>
+<?php endif; ?>
+
 
 <?php if (isset($_SESSION['producto']) && $_SESSION['producto'] == 'failed') : ?>
     <strong class="alert-red">Registro fallido, introduce bien los datos</strong>
@@ -6,41 +13,48 @@
 <!--Borrar sesion de producto-->
 <?php Utils::DeleteSession('producto'); ?>
 
+
+
 <div class="form-container">
-    <form action="<?= BASE_URL ?>producto/save" method="POST" enctype="multipart/form-data">
+    <form action="<?= $url_action ?>" method="POST" enctype="multipart/form-data">
         <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" value="<?php echo isset($_SESSION['campos']) ? $_SESSION['campos']['nombre'] : ''; ?>">
+
+        <input type="text" name="nombre" value="<?= Utils::mostrarDatos('nombre') ?>">
         <?php echo isset($_SESSION['errores']) ? Utils::MostrarError($_SESSION['errores'], 'nombre') : ''; ?>
 
         <label for="descripcion">Descripción:</label>
-        <textarea name="descripcion"><?php echo isset($_SESSION['campos']) ? $_SESSION['campos']['descripcion'] : ''; ?></textarea>
+        <textarea name="descripcion"><?= Utils::mostrarDatos('descripcion') ?></textarea>
         <?php echo isset($_SESSION['errores']) ? Utils::MostrarError($_SESSION['errores'], 'descripcion') : ''; ?>
 
         <label for="precio">Precio:</label>
-        <input type="text" name="precio" value="<?php echo isset($_SESSION['campos']) ? $_SESSION['campos']['precio'] : ''; ?>">
+        <input type="text" name="precio" value="<?= Utils::mostrarDatos('precio') ?>">
         <?php echo isset($_SESSION['errores']) ? Utils::MostrarError($_SESSION['errores'], 'precio') : ''; ?>
 
         <label for="stock">Stock:</label>
-        <input type="number" name="stock" value="<?php echo isset($_SESSION['campos']) ? $_SESSION['campos']['stock'] : ''; ?>">
+        <input type="number" name="stock" value="<?= Utils::mostrarDatos('stock') ?>">
         <?php echo isset($_SESSION['errores']) ? Utils::MostrarError($_SESSION['errores'], 'stock') : ''; ?>
-        
+
 
         <label for="categoria">Categoria:</label>
         <?php $categorias = Utils::showCategorias(); ?>
         <select name="categoria">
             <?php while ($cat = $categorias->fetch_object()) : ?>
-                <option value="<?= $cat->id ?>">
+                <option value="<?= $cat->id ?>" <?= isset($pro) && is_object($pro) && $cat->id == $pro->categoria_id ? 'selected' : '' ?>>
                     <?= $cat->nombre ?>
                 </option>
             <?php endwhile; ?>
         </select>
 
         <label for="imagen">Imagen:</label>
+        <?php if (isset($pro) && is_object($pro) && !empty($pro->imagen)) : ?>
+            <img src="<?= BASE_URL ?>upload/images/<?= $pro->imagen ?>" class="thumb">
+        <?php endif; ?>
         <input type="file" name="imagen">
-
+     
         <input type="submit" value="Guardar">
 
         <?php Utils::DeleteSession('errores'); ?>
         <?php Utils::DeleteSession('campos'); ?>
+        <?php Utils::DeleteSession('cambiaValue') ?>
     </form>
 </div>

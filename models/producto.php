@@ -113,13 +113,25 @@ class Producto{
 
     public function setImagen($imagen)
     {
-        $this->imagen = $imagen;
+        $this->imagen = $this->db->real_escape_string($imagen);
         return $this;
     }
 
     public function getAll(){
         $productos = $this->db->query("SELECT * FROM productos ORDER BY id DESC");
         return $productos;
+    }
+
+    public function getOne()
+    {
+        $id = $this->getId();
+        $producto = $this->db->query("SELECT * FROM productos WHERE id = $id");
+ 
+        return $producto->fetch_object();
+    }
+
+    public function getRandom(){
+        
     }
 
     public function save()
@@ -158,6 +170,54 @@ class Producto{
         }
 
         return $result;
+    }
+
+    public function edit(){
+        $categoria   = $this->getCategoria_id();
+        $nombre      = $this->getNombre();
+        $descripcion = $this->getDescripcion();
+        $precio      = $this->getPrecio();
+        $stock       = $this->getStock();
+        $oferta      = $this->getOferta();
+        $fecha       = $this->getFecha();
+        $imagen      = $this->getImagen();
+        
+        $sql = "UPDATE productos SET categoria_id='$categoria',nombre='$nombre', descripcion='$descripcion', precio=$precio, stock=$stock ";
+        if($imagen != null){
+            $sql .= ", imagen = '$imagen'";
+        }
+        
+        $sql .= " WHERE id = $this->id ";
+
+        $save = $this->db->query($sql);
+
+        $result = false;
+        if ($save) {
+            $result = true;
+        }
+
+        return $result;
+
+    }
+
+    public function delete(){
+        $id = $this->getId();
+
+        $del = $this->db->prepare("DELETE FROM productos WHERE id=?");
+        $del->bind_param("i",$id);
+        $del->execute();
+
+
+        $result = false;
+        if ($del) {
+            $result = true;
+            //se cierra la sentencia SQL
+            $del->close();
+        }
+
+        return $result;
+
+        
     }
 
 }

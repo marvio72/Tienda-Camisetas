@@ -35,6 +35,7 @@ class ProductoController{
             $categoria   = isset($_POST['categoria']) ? $_POST['categoria']    : false;
             $imagen      = isset($_POST['imagen']) ? $_POST['imagen']          : false;
 
+            
            
             //captura de datos en campos para que permanezcan hasta que sean ingresados a la
             //base de datos
@@ -94,22 +95,36 @@ class ProductoController{
                 $producto->setCategoria_id($categoria);
 
                 //Guardar la imagen
-                $file = $_FILES['imagen'];
-                $filename = $file['name'];
-                $mimetype = $file['type'];
+                if (isset($_FILES['imagen'])) {
+                    $file = $_FILES['imagen'];
+                    $filename = $file['name'];
+                    $mimetype = $file['type'];
 
-                if ($mimetype == "image/gif" || $mimetype == "image/png" || $mimetype == "image/jpeg" || $mimetype == "bmp" || $mimetype == "webp") {
-                    if (!is_dir('upload/images')) {
-                        mkdir('upload/images',0777,true);
+                    if ($mimetype == "image/gif" || $mimetype == "image/png" || $mimetype == "image/jpeg" || $mimetype == "bmp" || $mimetype == "webp") {
+                        if (!is_dir('upload/images')) {
+                            mkdir('upload/images', 0777, true);
+                        }
+
+                        move_uploaded_file($file['tmp_name'], 'upload/images/' . $filename);
+                        $producto->setImagen($filename);
                     }
-
-                    move_uploaded_file($file['tmp_name'],'upload/images/'.$filename);
-                    $producto->setImagen($filename);
                 }
+                
 
-                //Guardar la información ya validada a la base de datos
-                $save = $producto->save();
-
+                //Guardar o Editar la información ya validada a la base de datos
+                if (isset($_GET['id'])) {
+                    // var_dump($nombre);
+                    // var_dump( $_GET['id']);
+                    
+                    $id = $_GET['id'];
+                    $producto->setId($id);
+                    // var_dump($producto->setId($id));
+                    // die();
+                    $save = $producto->edit();
+                }else{
+                    $save = $producto->save();
+                }
+                
 
                 if ($save) {
                     $_SESSION['producto'] = "complete";
@@ -134,5 +149,47 @@ class ProductoController{
         } else {
             header("Location:" . BASE_URL . 'producto/crear');
         }
+    }
+
+    public function editar(){
+        Utils::isAdmin();
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+
+            $edit = true;
+
+            $producto = new Producto();
+            $producto->setId($id);
+            $pro = $producto->getOne();
+
+            $_SESSION['cambiaValue'] = $pro;
+
+            require_once 'views/producto/crear.phtml';
+        } else {
+            header('Location:'. BASE_URL .'producto/gestion');
+        }
+        
+    }
+
+    public function eliminar(){
+        Utils::isAdmin();
+        
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $producto = new Producto();
+            $producto->setId($id);
+            
+
+            $delete = $producto->delete();
+
+            if ($delete) {
+                $_SESSION['delete'] = 'complete';
+            }else{
+                $_SESSION['delete'] = 'failed';
+            }
+        }else{
+            $_SESSION['delete'] = 'failed';
+        }
+        header("Location:" . BASE_URL . "producto/gestion");
     }
 }

@@ -1,4 +1,4 @@
-<h1>Gestion de Productos</h1>
+<h1><i class="fas fa-tshirt"></i>Productos</h1>
 
 <a href="<?= BASE_URL ?>producto/crear" class="button button-small">Crear Producto</a>
 
@@ -8,6 +8,15 @@
 <?php endif; ?>
 <?php Utils::DeleteSession('producto'); ?>
 
+<?php if (isset($_SESSION['delete']) && $_SESSION['delete'] == 'failed') :?>
+    <br>
+    <strong class="alert-red">El producto no se ha borrado</strong>
+<?php elseif (isset($_SESSION['delete']) && $_SESSION['delete'] == 'complete') : ?>
+    <br>
+    <strong class="alert-green">El producto se ha borrado correctamente</strong>
+<?php endif; ?>
+<?php Utils::DeleteSession('delete'); ?>
+
 
 <table>
     <tr>
@@ -15,6 +24,7 @@
         <th>Nombre</th>
         <th>Precio</th>
         <th>Stock</th>
+        <th>Acciones</th>
     </tr>
     <?php while ($pro = $productos->fetch_Object()) : ?>
         <tr>
@@ -22,6 +32,11 @@
             <td><?= $pro->nombre; ?></td>
             <td>$<?= $pro->precio; ?></td>
             <td><?= $pro->stock; ?></td>
+            <td>
+                <a href="<?= BASE_URL ?>producto/editar&id=<?= $pro->id ?>"><i class="far fa-edit"></i></a>
+                <a href="<?= BASE_URL ?>producto/eliminar&id=<?= $pro->id ?>"><i class="far fa-trash-alt"></i></a>
+
+            </td>
         </tr>
     <?php endwhile; ?>
 </table>

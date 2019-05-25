@@ -68,4 +68,19 @@ class Utils{
         $categorias = $categoria->getAll();
         return $categorias;
     }
+
+    /***************   *** Comentario *** ***************/
+    /* @Descripcion: mostrarDatos
+    /* @Acción     : Muestra datos comprobando si son de la bd o de la captura del formulario
+    /***************   *** ********** *** ***************/
+
+    public static function mostrarDatos($campo){
+        if (isset($_SESSION['cambiaValue']->$campo) && is_object($_SESSION['cambiaValue'])) {
+            $resultado = isset($_SESSION['cambiaValue']) ? $_SESSION['cambiaValue']->$campo : '';
+        }else{
+            $resultado = isset($_SESSION['campos']) ? $_SESSION['campos'][$campo] : '';
+        }
+        return $resultado;
+    }
+        
 }
