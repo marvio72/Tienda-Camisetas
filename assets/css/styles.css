@@ -329,6 +329,17 @@ input[type="submit"] {
 	text-align: center;
 }
 
+.data p span {
+	color: #1579B5;
+	font-weight: bold;
+}
+#existencias-negativo {
+	color: red;
+	font-weight: bold;
+}
+
+
+
 
 
 /*=====  End of PRODUCTOS  ======*/

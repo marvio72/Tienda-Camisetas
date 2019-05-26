@@ -12,6 +12,11 @@
         <div class="data">
             <p class="descripcion"><?= $product->descripcion ?></p>
             <p class="price">$<?= $product->precio ?></p>
+            <?php if ($product->stock <= 0) : ?>
+                <p id="existencias-negativo">Sin existencia</p>
+            <?php else : ?>
+                <p><span><?= $product->stock ?></span> En existencia</p>
+            <?php endif; ?>
             <a href="" class="button">Comprar</a>
         </div>
     </div>
