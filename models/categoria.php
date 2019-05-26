@@ -36,6 +36,11 @@ class Categoria{
         return $categorias;
     }
 
+    public function getOne(){
+        $categoria = $this->db->query("SELECT * FROM categorias WHERE id ={$this->getId()}");
+        return $categoria->fetch_object();
+    }
+
     public function save(){
         /***************   *** Comentario *** ***************/
         /* @Descripcion: Usando el metodo prepare en mysqli

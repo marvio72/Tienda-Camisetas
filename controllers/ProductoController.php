@@ -3,8 +3,25 @@ require_once 'models/producto.php';
 class ProductoController{
 
     public function index(){
+        $producto = new Producto();
+        // Llamamos a la clase getRandom pasandole el nuero de productos que deseamos
+        // que aparezcan en el inicio de la pagina
+        $productos = $producto->getRandom(6);
+        // var_dump($productos->fetch_object());
         // echo "Controlador Productos, Acción index";
         require_once 'views/producto/destacados.phtml';
+    }
+
+    public function ver(){
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+
+            $producto = new Producto();
+            $producto->setId($id);
+            $product = $producto->getOne();
+        }
+        require_once 'views/producto/ver.phtml';
+       
     }
 
     public function gestion(){

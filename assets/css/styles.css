@@ -279,13 +279,13 @@ input[type="submit"] {
 .producto {
 	width: 30%;
 	float: left;
-	margin: 0 10px;
+	margin: 0 10px 20px 10px;
 	text-align: center;
 }
 
 
 .producto img{
-	width: 100px;
+	height: 150px;
 
 }
 
@@ -293,6 +293,43 @@ input[type="submit"] {
 	font-weight: bold;
 	color: #555;
 }
+
+.producto a{
+	color: #000000;
+	text-decoration: none;
+}
+
+.producto a:hover{
+	color: #555555;
+}
+
+#detail-product{
+	width: 100%;
+}
+
+#detail-product .image{ 
+	display: block;
+	width: 40%;
+	float: left;
+}
+
+#detail-product img{
+	display: block;
+	width: 90%;
+	float: left;
+}
+
+#detail-product .data{
+	width: 50%;
+	float: right;
+}
+
+#detail-product .button{
+	width: 200px;
+	text-align: center;
+}
+
+
 
 /*=====  End of PRODUCTOS  ======*/
 
