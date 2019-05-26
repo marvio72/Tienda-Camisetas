@@ -150,6 +150,20 @@ nav#menu ul li a:hover {
 	font-weight: bold;
 }
 
+#carrito ul{
+	margin-top: 15px;
+	padding: 0px;
+	margin-left: 20px;
+}
+
+#carrito ul li{
+	list-style: none;
+	padding: 5px 0;
+}
+
+
+
+
 /*FORMULARIO*/
 label,
 input[type="email"],
@@ -338,7 +352,9 @@ input[type="submit"] {
 	font-weight: bold;
 }
 
-
+.img_carrito {
+	height: 50px;
+}
 
 
 
@@ -400,7 +416,7 @@ input[type="submit"] {
 */
 
 table{
-	border: 1px solid #555555;
+	border-bottom: 1px solid #cccccc;
 	width: 100%;
 	text-align: center;
 }
@@ -434,4 +450,28 @@ td{
 .form-container{
 	width: 50%;
 	margin-left: 25%;
+}
+
+/*
+ dP""b8    db    88""Yb 88""Yb 88 888888  dP"Yb      8888b.  888888      dP""b8  dP"Yb  8b    d8 88""Yb 88""Yb    db    .dP"Y8
+dP   `"   dPYb   88__dP 88__dP 88   88   dP   Yb      8I  Yb 88__       dP   `" dP   Yb 88b  d88 88__dP 88__dP   dPYb   `Ybo."
+Yb       dP__Yb  88"Yb  88"Yb  88   88   Yb   dP      8I  dY 88""       Yb      Yb   dP 88YbdP88 88"""  88"Yb   dP__Yb  o.`Y8b
+ YboodP dP""""Yb 88  Yb 88  Yb 88   88    YbodP      8888Y"  888888      YboodP  YbodP  88 YY 88 88     88  Yb dP""""Yb 8bodP'
+*/
+
+#total-carrito {
+	width: 400px;
+	float: right;
+}
+
+#total-carrito h3{
+	display: inline-block;
+	padding-right: 20px;
+	margin-right: 20px;
+}
+
+ .button-pedido{
+	display: inline-block;
+	width: 130px;
+	text-align: center;
 }

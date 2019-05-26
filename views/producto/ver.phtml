@@ -17,7 +17,7 @@
             <?php else : ?>
                 <p><span><?= $product->stock ?></span> En existencia</p>
             <?php endif; ?>
-            <a href="" class="button">Comprar</a>
+            <a href="<?=BASE_URL?>carrito/add&id=<?=$product->id?>" class="button">Comprar</a>
         </div>
     </div>
 
