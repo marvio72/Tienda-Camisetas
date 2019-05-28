@@ -1,0 +1,40 @@
+<h1>Detalle de Pedido <?= $_GET['id'] ?></h1>
+
+<?php if (isset($pedido)) : ?>
+
+    <h3 Class="pedido_titulo">Datos del Solicitante</h3>
+    <p class="datos_pedido">Nombre: <?= $pedido->nombre ?> <?= $pedido->apellidos ?></p>
+    <p class="datos_pedido">Email: <?= $pedido->email ?></p>
+    <h3 Class="pedido_titulo">Dirección de envío</h3>
+    <p class="datos_pedido">Provincia: <?= $pedido->provincia ?></p>
+    <p class="datos_pedido">Ciudad: <?= $pedido->localidad ?></p>
+    <p class="datos_pedido">Dirección: <?= $pedido->direccion ?></p>
+    <h3 Class="pedido_titulo">Datos del Pedido</h3>
+    <p class="datos_pedido">Numero de Pedido: <?= $pedido->id ?></p>
+    <p class="datos_pedido">Fecha de Pedido: <?= $pedido->fecha ?> - <?= $pedido->hora ?></p>
+    <p class="datos_pedido">Total a Pagar: $<?= $pedido->coste ?></p>
+    <p class="datos_pedido">Productos:</p>
+    <table class="pedido_confirmado">
+        <tr>
+            <th>Imagen</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+        </tr>
+        <?php while ($producto = $productos->fetch_object()) : ?>
+            <tr>
+                <td>
+                    <?php if ($producto->imagen != null) : ?>
+                        <img src="<?= BASE_URL ?>upload/images/<?= $producto->imagen ?>" class="img_carrito">
+                    <?php else : ?>
+                        <img src="<?= BASE_URL ?>assets/img/camiseta.png" class="img_carrito">
+                    <?php endif; ?>
+                </td>
+                <td><a href="<?= BASE_URL ?>producto/ver&id=<?= $producto->id ?>"><?= $producto->nombre ?></a></td>
+                <td><?= $producto->unidades ?></td>
+                <td>$<?= $producto->precio ?></td>
+
+            </tr>
+        <?php endwhile; ?>
+    </table>
+<?php endif ?>

@@ -4,11 +4,13 @@ require_once 'models/producto.php';
 class CarritoController{
 
     public function index(){
+        if (isset($_SESSION['carrito'])) {
+            $carrito = $_SESSION['carrito'];
+            require_once 'views/carrito/index.phtml';
+        } else {
+            header('Location:'.BASE_URL);
+        }
         
-        $carrito = $_SESSION['carrito'];
-        // var_dump($carrito);
-        
-        require_once 'views/carrito/index.phtml';
     }
 
     public function add(){

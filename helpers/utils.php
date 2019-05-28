@@ -58,6 +58,18 @@ class Utils{
     }
 
     /***************   *** Comentario *** ***************/
+    /* @Descripcion: isIdentity
+    /* @Acción     : Valida que el usuario este logueado
+    /***************   *** ********** *** ***************/
+    public static function isIdentity(){
+        if (!isset($_SESSION['identity'])) {
+            header("Location:" . BASE_URL);
+        } else {
+            return true;
+        }
+    }
+
+    /***************   *** Comentario *** ***************/
     /* @Descripcion: showCategorias
     /* @Acción     : Muestra en el menu todas las categorias que tenemos
     /***************   *** ********** *** ***************/
@@ -98,6 +110,12 @@ class Utils{
         }
 
         return $stats;
+    }
+
+    public static function delete_carrito()
+    {
+        unset($_SESSION['carrito']);
+        header("Location:" . BASE_URL . "carrito/index");
     }
         
 }

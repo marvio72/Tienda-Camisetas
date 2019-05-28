@@ -4,9 +4,9 @@
         <h3>Mi carrito</h3>
         <ul>
             <?php $stats = Utils::statsCarrito(); ?>
-            <li><i class="fas fa-tshirt"></i><a href="">Productos(<?=$stats['count']?>)</a></li>
-            <li><i class="fas fa-money-bill-alt"></i><a href="">Total $<?=$stats['total']?></a></li>
-            <li><i class="fas fa-shopping-cart"></i><a href="">Ver el carrito</a></li>
+            <li><i class="fas fa-tshirt"></i><a href="">Productos(<?= $stats['count'] ?>)</a></li>
+            <li><i class="fas fa-money-bill-alt"></i><a href="">Total $<?= $stats['total'] ?></a></li>
+            <li><i class="fas fa-shopping-cart"></i><a href="<?= BASE_URL . "carrito/index" ?>">Ver el carrito</a></li>
         </ul>
     </div>
     <div id="login" class="bloque-aside">
@@ -28,10 +28,10 @@
 
                 <li><i class="fas fa-layer-group"></i><a href="<?= BASE_URL ?>categoria/index">Categorias</a></li>
                 <li><i class="fas fa-tshirt"></i><a href="<?= BASE_URL ?>producto/gestion">Productos</a></li>
-                <li><i class="fas fa-shopping-cart"></i><a href="#">Pedidos</a></li>
+                <li><i class="fas fa-shopping-cart"></i><a href="<?= BASE_URL ?>pedido/gestion">Pedidos</a></li>
             <?php endif; ?>
             <?php if (isset($_SESSION['identity'])) : ?>
-                <li><i class="fas fa-shopping-basket"></i><a href="#">Mis pedidos</a></li>
+                <li><i class="fas fa-shopping-basket"></i><a href="<?=BASE_URL?>pedido/mis_pedidos">Mis pedidos</a></li>
                 <li><i class="fas fa-sign-out-alt"></i><a href="<?= BASE_URL ?>usuario/logout">Cerrar sesión</a></li>
             <?php else : ?>
                 <li><i class="fas fa-sign-in-alt"></i><a href="<?= BASE_URL ?>usuario/registro">Registrate aqui</a></li>
