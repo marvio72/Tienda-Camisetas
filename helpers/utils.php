@@ -117,5 +117,24 @@ class Utils{
         unset($_SESSION['carrito']);
         header("Location:" . BASE_URL . "carrito/index");
     }
+
+    /***************   *** Comentario *** ***************/
+    /* @Descripcion: showStatus
+    /* @Acción     : Valida estado de envio y lo traduce al español
+    /***************   *** ********** *** ***************/
+    public static function showStatus($status){
+        $estado = 'Pendiente';
+        if ($status == 'confirm') {
+            $estado = 'Pendiente';
+        } elseif ($status == 'preparation') {
+            $estado = 'En preraración';
+        } elseif ($status == 'ready') {
+            $estado = 'Listo para enviar';
+        } elseif ($status == 'sended') {
+            $estado = 'Enviado';
+        }
+
+        return $estado;
+    }
         
 }

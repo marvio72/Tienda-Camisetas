@@ -128,8 +128,35 @@ class PedidoController{
         }else{
             header('Location:'.BASE_URL.'pedido/mis_pedidos');
         }
-
-        
     }
+
+    public function gestion(){
+        Utils::isAdmin();
+        $gestion = true;
+
+        $pedido = new Pedido();
+        $pedidos = $pedido->getAll();
+
+
+        require_once 'views/pedido/mis_pedidos.phtml';
+
+    }
+
+    public function estado(){
+        Utils::isAdmin();
+        if (isset($_POST['pedido_id']) && isset($_POST['estado'])) {
+            $idped = $_POST['pedido_id'];
+            $estado = $_POST['estado'];
+
+            $pedido = new Pedido();
+            $pedido->setId($idped);
+            $pedido->setEstado($estado);
+            $pedido->updateOne();
+
+            header('Location:'.BASE_URL."pedido/detalle&id=$idped");
+        }else{
+            header("Location:".BASE_URL);
+        }
+    } 
 
 }

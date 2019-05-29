@@ -91,7 +91,7 @@ class Pedido{
 
     public function setEstado($estado)
     {
-        $this->estado = $estado;
+        $this->estado = $this->db->real_escape_string($estado);
         return $this;
     }
 
@@ -185,7 +185,7 @@ class Pedido{
         $hora       = $this->getHora();
 
 
-        $sql = "INSERT INTO pedidos VALUES (NULL,$usuario_id,'$provincia','$localidad','$direccion',$coste,'Confirmado',CURDATE(),CURTIME());"; 
+        $sql = "INSERT INTO pedidos VALUES (NULL,$usuario_id,'$provincia','$localidad','$direccion',$coste,'confirm',CURDATE(),CURTIME());"; 
         $save = $this->db->query($sql);
         
         $result = false;
@@ -214,10 +214,33 @@ class Pedido{
             $result = true;
         }
         return $result;
-
-        var_dump($pedido_id);
-
-        
     }
 
+    public function updateOne(){
+        $idped = $this->getId();
+        $estado = $this->getEstado();
+
+        $sql = "UPDATE pedidos SET estado = '$estado' "
+             . "WHERE id = $idped ";
+
+        $save = $this->db->query($sql);
+
+        /***************   *** Comentario *** ***************/
+        /* @Descripcion: Detectar Errores
+        /* @Acción     : Rutina para detectar Errores
+        /***************   *** ********** *** ***************/
+        // echo $sql;
+        // echo $this->db->error;
+        // die();
+
+
+
+        $result = false;
+        if ($save) {
+            $result = true;
+        }
+        return $result;
+
+
+    }
 }

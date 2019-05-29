@@ -1,16 +1,31 @@
 <h1>Detalle de Pedido <?= $_GET['id'] ?></h1>
 
 <?php if (isset($pedido)) : ?>
+    <?php if (isset($_SESSION['admin'])) : ?>
+        <h3 Class="pedido_titulo">Cambiar estado del pedido</h3>
+        <form action="<?= BASE_URL ?>pedido/estado" method="POST">
+            <input type="hidden" value="<?= $pedido->id ?>" name="pedido_id">
+            <select name="estado">
+                <option value="confirm" <?= $pedido->estado == 'confirm' ? 'selected' : '' ?>>Pendiente</option>
+                <option value="preparation" <?= $pedido->estado == 'preparation' ? 'selected' : '' ?>>En preparación</option>
+                <option value="ready" <?= $pedido->estado == 'ready' ? 'selected' : '' ?>>Listo para enviar</option>
+                <option value="sended" <?= $pedido->estado == 'sended' ? 'selected' : '' ?>>Enviado</option>
+            </select>
+            <input type="submit" value="Cambiar estado">
+        </form>
+        <h3 Class="pedido_titulo">Datos del Solicitante</h3>
+        <p class="datos_pedido">Nombre: <?= $pedido->nombre ?> <?= $pedido->apellidos ?></p>
+        <p class="datos_pedido">Email: <?= $pedido->email ?></p>
 
-    <h3 Class="pedido_titulo">Datos del Solicitante</h3>
-    <p class="datos_pedido">Nombre: <?= $pedido->nombre ?> <?= $pedido->apellidos ?></p>
-    <p class="datos_pedido">Email: <?= $pedido->email ?></p>
+    <?php endif; ?>
     <h3 Class="pedido_titulo">Dirección de envío</h3>
     <p class="datos_pedido">Provincia: <?= $pedido->provincia ?></p>
     <p class="datos_pedido">Ciudad: <?= $pedido->localidad ?></p>
     <p class="datos_pedido">Dirección: <?= $pedido->direccion ?></p>
     <h3 Class="pedido_titulo">Datos del Pedido</h3>
     <p class="datos_pedido">Numero de Pedido: <?= $pedido->id ?></p>
+    <p class="datos_pedido">Estado del Pedido: <?= Utils::showStatus($pedido->estado)  ?></p>
+
     <p class="datos_pedido">Fecha de Pedido: <?= $pedido->fecha ?> - <?= $pedido->hora ?></p>
     <p class="datos_pedido">Total a Pagar: $<?= $pedido->coste ?></p>
     <p class="datos_pedido">Productos:</p>
